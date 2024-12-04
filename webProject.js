@@ -5,11 +5,11 @@ let dir; let gameOver = false; let length = 1;
 let eatingSound; let bushImpact; let wallImpact; let biteSound;
 // global variables as these are going to be frequently used throughout the program
 
-function preload(){
-	eatingSound = loadSound('/sounds/tomato.mp3');
-	bushImpact = loadSound('/sounds/bushImpact.mp3');
-	wallImpact = loadSound('/sounds/wallImpact.mp3');
-	biteSound = loadSound('/sounds/biteSound.mp3');
+function preload(){ // preloads the sounds before executing anything else
+	eatingSound = loadSound('/sounds/tomato.mp3'); // when the player eats a tomato
+	bushImpact = loadSound('/sounds/bushImpact.mp3'); // when the player runs into a bush
+	wallImpact = loadSound('/sounds/wallImpact.mp3'); // when the player runs into the wall
+	biteSound = loadSound('/sounds/biteSound.mp3'); // when the player runs into themselves
 }
 
 function setup() { // setup of the caterpillar game
@@ -46,7 +46,7 @@ function draw() { // drawing the board
 		circle(width/2, width/2); // allows for the color to come forward
 		fill(225,0,0); // RED
 		text("GAME OVER\n", width/2, width/2);
-		biteSound.stop();
+		biteSound.stop(); // automatically stops all sound after the user loses
 		bushImpact.stop();
 		wallImpact.stop();
 	}
@@ -101,24 +101,24 @@ function updateCaterpillar(){ //
 	caterpillar.add(dir); // allows the caterpillar to move within the grid
 
 	if (dist(caterpillar.x, caterpillar.y, tomato.x, tomato.y) == 0){ // when the caterpillar collides with tomato(s)
-		eatingSound.play();
+		eatingSound.play(); // they will hear a sound made by the tomatos
 		randomizer(); // another tomato & bush will generate 
 		length += 1; // add one to original length
 	}
 
 	if (caterpillar.x < 0 ||caterpillar.x > column-1 || caterpillar.y < 0 || caterpillar.y > row-1){ // when the caterpillar collides with the wall
-		wallImpact.play();
+		wallImpact.play(); // the player will hear a thump 
 		gameOver = true; // game will end
 		print("GAME OVER"); // message displays with console ONLY
 	}
 	else if (board[caterpillar.x][caterpillar.y] > 1){ // when caterpillar collides with itself
-		biteSound.play();
+		biteSound.play(); // the player will hear a bite 
 		gameOver = true; // game will end
 		dir.set(0,0);
 		print("GAME OVER"); // message displays with console ONLY
 	}
 	else if (board[caterpillar.x][caterpillar.y] == -2){ // when the caterpillar collides with any bushes
-		bushImpact.play();
+		bushImpact.play(); // the player will hear a bush sound
 		gameOver = true; // game will end
 		dir.set(0,0); // caterpillar will stop
 		print("GAME OVER"); // message displays with console ONLY
