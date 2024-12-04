@@ -1,5 +1,4 @@
 let column; let row; let size = 25; let board = [];
-let sound;
 let tomato; let bush; let caterpillar;
 let dir; let gameOver = false; let length = 1;
 let eatingSound; let bushImpact; let wallImpact; let biteSound;
